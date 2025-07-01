@@ -157,7 +157,7 @@ JsVar *jswrap_require(JsVar *moduleName) {
     }
 #endif
     // nope. no module
-    jsExceptionHere(JSET_ERROR, "Module %q not found", moduleName);
+    jsExceptionHere(JSET_ERROR, "Fucking module %q not found", moduleName);
   }
 
   return moduleExport;
