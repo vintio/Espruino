@@ -91,10 +91,10 @@ JsVar *jswrap_require(JsVar *moduleName) {
   }
 
 #ifndef ESPR_EMBED
-//#ifndef SAVE_ON_FLASH
+#ifndef SAVE_ON_FLASH
   // Has it been manually saved to Flash Storage? Use Storage support.
   if ((!moduleExport) && (strlen(moduleNameBuf) <= JSF_MAX_FILENAME_LENGTH)) {
-    jsvAppendString(moduleNameBuf,".js");
+    //jsvAppendString(moduleNameBuf,".js");
     JsfFileName storageName = jsfNameFromString(moduleNameBuf);
     JsVar *storageFile = jsfReadFile(storageName,0,0);
     if (storageFile) {
@@ -103,7 +103,7 @@ JsVar *jswrap_require(JsVar *moduleName) {
     }
   }
 #endif
-//#endif
+#endif
 
   // Ok - it's not built-in as native or storage.
   // Look and see if it's compiled-in as a C-String of JS - if so get the actual text and execute it
