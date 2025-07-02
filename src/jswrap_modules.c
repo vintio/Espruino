@@ -94,7 +94,7 @@ JsVar *jswrap_require(JsVar *moduleName) {
 #ifndef SAVE_ON_FLASH
   // Has it been manually saved to Flash Storage? Use Storage support.
   if ((!moduleExport) && (strlen(moduleNameBuf) <= JSF_MAX_FILENAME_LENGTH)) {
-    jsvAppendString(moduleNameBuf,".js");
+    //jsvAppendString(moduleNameBuf,".js");
     JsfFileName storageName = jsfNameFromString(moduleNameBuf);
     JsVar *storageFile = jsfReadFile(storageName,0,0);
     if (storageFile) {
