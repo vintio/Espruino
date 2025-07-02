@@ -94,6 +94,7 @@ JsVar *jswrap_require(JsVar *moduleName) {
 //#ifndef SAVE_ON_FLASH
   // Has it been manually saved to Flash Storage? Use Storage support.
   if ((!moduleExport) && (strlen(moduleNameBuf) <= JSF_MAX_FILENAME_LENGTH)) {
+    jsvAppendString(moduleNameBuf,".js");
     JsfFileName storageName = jsfNameFromString(moduleNameBuf);
     JsVar *storageFile = jsfReadFile(storageName,0,0);
     if (storageFile) {
@@ -105,18 +106,6 @@ JsVar *jswrap_require(JsVar *moduleName) {
 //#endif
 
   // Ok - it's not built-in as native or storage.
-  // Check in Storage with .js extension if not found
-  if ((!moduleExport) && (strlen(moduleNameBuf) <= JSF_MAX_FILENAME_LENGTH-3)) {
-    char moduleNameWithExt[sizeof(moduleNameBuf)+4];
-    snprintf(moduleNameWithExt, sizeof(moduleNameWithExt), "%s.js", moduleNameBuf);
-    JsfFileName storageName = jsfNameFromString(moduleNameWithExt);
-    JsVar *storageFile = jsfReadFile(storageName,0,0);
-    if (storageFile) {
-      moduleExport = jspEvaluateModule(storageFile);
-      jsvUnLock(storageFile);
-    }
-  }
-
   // Look and see if it's compiled-in as a C-String of JS - if so get the actual text and execute it
   if (!moduleExport) {
     const char *builtInJS = jswGetBuiltInJSLibrary(moduleNameBuf);
