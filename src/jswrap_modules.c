@@ -94,7 +94,6 @@ JsVar *jswrap_require(JsVar *moduleName) {
 #ifndef SAVE_ON_FLASH
   // Has it been manually saved to Flash Storage? Use Storage support.
   if ((!moduleExport) && (strlen(moduleNameBuf) <= JSF_MAX_FILENAME_LENGTH)) {
-    //jsvAppendString(moduleNameBuf,".js");
     JsfFileName storageName = jsfNameFromString(moduleNameBuf);
     JsVar *storageFile = jsfReadFile(storageName,0,0);
     if (storageFile) {
@@ -158,7 +157,7 @@ JsVar *jswrap_require(JsVar *moduleName) {
     }
 #endif
     // nope. no module
-    jsExceptionHere(JSET_ERROR, "Fucking module %q not found", moduleName);
+    jsExceptionHere(JSET_ERROR, "Module %q not found", moduleName);
   }
 
   return moduleExport;
@@ -215,7 +214,7 @@ void jswrap_modules_removeCached(JsVar *id) {
 
   JsVar *moduleExportName = jsvFindChildFromVar(moduleList, id, false);
   if (!moduleExportName) {
-    jsExceptionHere(JSET_ERROR, "Module %q not fuck found", id);
+    jsExceptionHere(JSET_ERROR, "Module %q not found", id);
   } else {
     jsvRemoveChildAndUnLock(moduleList, moduleExportName);
   }
